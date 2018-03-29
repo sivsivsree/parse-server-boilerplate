@@ -36,7 +36,7 @@ var dashboard = new ParseDashboard({
             "serverURL": process.env.SERVER_URL,
             "appId": "APPLICATION_ID",
             "masterKey": "MASTER_KEY",
-            "appName": "Test Application",
+            "appName": "loggerApplication",
             "clientKey": "2ead5328dda34e688816040a0e78948a"
         }
     ]
