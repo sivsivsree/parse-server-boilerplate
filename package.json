@@ -1,11 +1,11 @@
 {
-  "name": "parse-server-example",
-  "version": "1.4.0",
-  "description": "An example Parse API server using the parse-server module",
+  "name": "Tristar-Log-Server",
+  "version": "0.0.1",
+  "description": "",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ParsePlatform/parse-server-example"
+    "url": "https://git.heroku.com/cryptic-shore-11692.git"
   },
   "license": "MIT",
   "dependencies": {
