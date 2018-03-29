@@ -4,6 +4,7 @@ var ParseServer = require('parse-server').ParseServer;
 var ParseDashboard = require('parse-dashboard');
 const PORT = process.env.PORT || 5000 ;
 const SPORT = 4040;
+const SERVER_URL = "https://cryptic-shore-11692.herokuapp.com/parse";
 
 var app = express();
 
@@ -12,7 +13,7 @@ var api = new ParseServer({
     appId: 'APPLICATION_ID',
     masterKey: 'MASTER_KEY', // Keep this key secret!
     fileKey: 'optionalFileKey',
-    serverURL: 'http://localhost:1337/parse', // Don't forget to change to https if needed 
+    serverURL: SERVER_URL, // Don't forget to change to https if needed 
     liveQuery: {
         classNames: ['FileUpload','GameScore']
     }
@@ -21,7 +22,7 @@ var api = new ParseServer({
 var dashboard = new ParseDashboard({
     "apps": [
         {
-            "serverURL": "http://localhost:1337/parse",
+            "serverURL": SERVER_URL,
             "appId": "APPLICATION_ID",
             "masterKey": "MASTER_KEY",
             "appName": "Test Application",
