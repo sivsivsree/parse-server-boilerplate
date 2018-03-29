@@ -30,6 +30,7 @@ var api = new ParseServer({
 });
 
 var dashboard = new ParseDashboard({
+    "allowInsecureHTTP": true,
     "apps": [
         {
             "serverURL": process.env.SERVER_URL,
