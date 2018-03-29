@@ -3,22 +3,20 @@
 
 var express = require('express');
 var ParseServer = require('parse-server').ParseServer;
-var path = require('path');
-var ParseDashboard = require('parse-dashboard');
+const path = require('path');
+const ParseDashboard = require('parse-dashboard');
 
-var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
+const databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 // Serve the Parse API on the /parse URL prefix
-var mountPath = process.env.PARSE_MOUNT || '/parse';
-var port = process.env.PORT || 1337;
-
-
-var app = express();
+const mountPath = process.env.PARSE_MOUNT || '/parse';
+const port = process.env.PORT || 1337;
+const app = express();
 
 if (!databaseUri) {
   console.log('DATABASE_URI not specified, falling back to localhost.');
 }
 
-var api = new ParseServer({
+let api = new ParseServer({
   databaseURI: databaseUri || 'mongodb://localhost:27017/dev',
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
   appId: process.env.APP_ID || "APPLICATION_ID",
@@ -29,7 +27,7 @@ var api = new ParseServer({
   }
 });
 
-var dashboard = new ParseDashboard({
+let dashboard = new ParseDashboard({
     "allowInsecureHTTP": true,
     "apps": [
         {
@@ -44,7 +42,6 @@ var dashboard = new ParseDashboard({
 
 
 app.use(mountPath, api);
-app.use('/dashboard', dashboard);
 
 
 app.get('/', function(req, res) {
@@ -53,7 +50,7 @@ app.get('/', function(req, res) {
 
 
 
-var httpServer = require('http').createServer(app);
+let httpServer = require('http').createServer(app);
 httpServer.listen(port, function() {
     console.log('Server running ' + process.env.SERVER_URL + ' on port ' + port + '.');
 });
