@@ -2,7 +2,7 @@
   "name": "My-real-time-server-stack.",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "~4.11.x",
-    "kerberos": "~0.0.x",
+    "kerberos": "~0.0.23",
     "parse": "~1.8.0",
     "parse-server": "~2.6.3",
     "parse-dashboard": "latest"
