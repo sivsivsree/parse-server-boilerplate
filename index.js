@@ -3,6 +3,7 @@ var express = require('express');
 var ParseServer = require('parse-server').ParseServer;
 var ParseDashboard = require('parse-dashboard');
 const PORT = process.env.PORT || 5000 ;
+const SPORT = 4040;
 
 var app = express();
 
@@ -34,7 +35,7 @@ app.use('/parse', api);
 app.use('/dashboard', dashboard);
 
 var httpServer = require('http').createServer(app);
-httpServer.listen(PORT);
+httpServer.listen(SPORT);
 var parseLiveQueryServer = ParseServer.createLiveQueryServer(httpServer);
 
 app.listen(PORT, function() {
