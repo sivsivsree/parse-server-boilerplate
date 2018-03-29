@@ -16,7 +16,7 @@
     "parse-dashboard": "latest"
   },
   "scripts": {
-    "start": "node index.js && parse-dashboard --appId APPLICATION_ID --masterKey MASTER_KEY --serverURL 'https://cryptic-shore-11692.herokuapp.com/parse' --appName loggerApplication"
+    "start": "node index.js && ./node_modules/.bin/parse-dashboard --appId APPLICATION_ID --masterKey MASTER_KEY --serverURL 'https://cryptic-shore-11692.herokuapp.com/parse' --appName loggerApplication --allowInsecureHTTP"
   },
   "engines": {
     "node": ">=4.3"
