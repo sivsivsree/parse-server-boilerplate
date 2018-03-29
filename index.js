@@ -54,7 +54,7 @@ app.get('/', function(req, res) {
 
 var httpServer = require('http').createServer(app);
 httpServer.listen(port, function() {
-    console.log('Server running on port ' + port + '.');
+    console.log('Server running ' + process.env.SERVER_URL + ' on port ' + port + '.');
 });
 
 
