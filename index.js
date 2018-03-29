@@ -23,7 +23,7 @@ var api = new ParseServer({
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
   appId: process.env.APP_ID || "APPLICATION_ID",
   masterKey: process.env.MASTER_KEY || "MASTER_KEY", //Add your master key here. Keep it secret!
-  serverURL: process.env.SERVER_URL || 'http://localhost:1337/parse',  // Don't forget to change to https if needed
+  serverURL: process.env.SERVER_URL || 'https://localhost:1337/parse',  // Don't forget to change to https if needed
   liveQuery: {
     classNames: ['FileUpload','GameScore'] // List of classes to support for query subscriptions
   }
@@ -32,7 +32,7 @@ var api = new ParseServer({
 var dashboard = new ParseDashboard({
     "apps": [
         {
-            "serverURL": process.env.SERVER_URL || 'https://localhost:1337/parse',
+            "serverURL": process.env.SERVER_URL,
             "appId": "APPLICATION_ID",
             "masterKey": "MASTER_KEY",
             "appName": "Test Application",
@@ -47,7 +47,7 @@ app.use('/dashboard', dashboard);
 
 
 app.get('/', function(req, res) {
-  res.status(200).send('I dream of being a website.  Please star the parse-server repo on GitHub!');
+  res.status(200).send('All good - Siv.');
 });
 
 
