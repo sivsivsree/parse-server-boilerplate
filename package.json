@@ -1,19 +1,21 @@
 {
-  "name": "My-real-time-server-stack.",
-  "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
-  "scripts": {
-    "start": "node index.js"
+  "name": "parse-server-example",
+  "version": "1.4.0",
+  "description": "An example Parse API server using the parse-server module",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ParsePlatform/parse-server-example"
   },
-  "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "express": "~4.11.x",
     "kerberos": "~0.0.x",
     "parse": "~1.8.0",
-    "parse-server": "~2.6.3",
-    "parse-dashboard": "latest"
+    "parse-server": "*"
+  },
+  "scripts": {
+    "start": "node index.js"
   },
   "engines": {
     "node": ">=4.3"

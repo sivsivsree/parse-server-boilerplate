@@ -1,28 +1,37 @@
+// Example express application adding the parse-server module to expose Parse
+// compatible API routes.
 
 var express = require('express');
 var ParseServer = require('parse-server').ParseServer;
-var ParseDashboard = require('parse-dashboard');
-const PORT = process.env.PORT || 5000 ;
-const SPORT = 4040;
-const SERVER_URL = "https://cryptic-shore-11692.herokuapp.com/parse";
+var path = require('path');
+
+var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
+// Serve the Parse API on the /parse URL prefix
+var mountPath = process.env.PARSE_MOUNT || '/parse';
+var port = process.env.PORT || 1337;
+
 
 var app = express();
 
+if (!databaseUri) {
+  console.log('DATABASE_URI not specified, falling back to localhost.');
+}
+
 var api = new ParseServer({
-    databaseURI: 'mongodb://tristar_dev:1234@ds227459.mlab.com:27459/tristar_android', // Connection string for your MongoDB database
-    appId: 'APPLICATION_ID',
-    masterKey: 'MASTER_KEY', // Keep this key secret!
-    fileKey: 'optionalFileKey',
-    serverURL: SERVER_URL, // Don't forget to change to https if needed 
-    liveQuery: {
-        classNames: ['FileUpload','GameScore']
-    }
+  databaseURI: databaseUri || 'mongodb://localhost:27017/dev',
+  cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
+  appId: process.env.APP_ID || "APPLICATION_ID",
+  masterKey: process.env.MASTER_KEY || "MASTER_KEY", //Add your master key here. Keep it secret!
+  serverURL: process.env.SERVER_URL || 'http://localhost:1337/parse',  // Don't forget to change to https if needed
+  liveQuery: {
+    classNames: ['FileUpload','GameScore'] // List of classes to support for query subscriptions
+  }
 });
 
 var dashboard = new ParseDashboard({
     "apps": [
         {
-            "serverURL": SERVER_URL,
+            "serverURL": process.env.SERVER_URL || 'https://localhost:1337/parse',
             "appId": "APPLICATION_ID",
             "masterKey": "MASTER_KEY",
             "appName": "Test Application",
@@ -31,14 +40,21 @@ var dashboard = new ParseDashboard({
     ]
 });
 
-// Serve the Parse API on the /parse URL prefix
-app.use('/parse', api);
+
+app.use(mountPath, api);
 app.use('/dashboard', dashboard);
 
-var httpServer = require('http').createServer(app);
-httpServer.listen(SPORT);
-var parseLiveQueryServer = ParseServer.createLiveQueryServer(httpServer);
 
-app.listen(PORT, function() {
-    console.log('parse-server-example running on port '+ PORT);
+app.get('/', function(req, res) {
+  res.status(200).send('I dream of being a website.  Please star the parse-server repo on GitHub!');
 });
+
+
+
+var httpServer = require('http').createServer(app);
+httpServer.listen(port, function() {
+    console.log('Server running on port ' + port + '.');
+});
+
+
+ParseServer.createLiveQueryServer(httpServer);
