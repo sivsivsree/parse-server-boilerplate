@@ -21,17 +21,18 @@ let api = new ParseServer({
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
   appId: process.env.APP_ID || "APPLICATION_ID",
   masterKey: process.env.MASTER_KEY || "MASTER_KEY", //Add your master key here. Keep it secret!
-  serverURL: process.env.SERVER_URL || 'https://localhost:1337/parse',  // Don't forget to change to https if needed
+  serverURL: process.env.SERVER_URL || 'http://localhost:1337/parse',  // Don't forget to change to https if needed
   liveQuery: {
-    classNames: ['FileUpload','User_Events'] 
-  }
+    classNames: ['FileUpload','StreamEvents'] 
+  },
+  verbose: true
 });
 
 let dashboard = new ParseDashboard({
     "allowInsecureHTTP": true,
     "apps": [
         {
-            "serverURL": process.env.SERVER_URL,
+            "serverURL": process.env.SERVER_URL || 'http://localhost:1337/parse',
             "appId": "APPLICATION_ID",
             "masterKey": "MASTER_KEY",
             "appName": "loggerApplication",
@@ -42,12 +43,11 @@ let dashboard = new ParseDashboard({
 
 
 app.use(mountPath, api);
-
+app.use('/dashboard', dashboard);
 
 app.get('/', function(req, res) {
   res.status(200).send('All good - Siv.');
 });
-
 
 
 let httpServer = require('http').createServer(app);
